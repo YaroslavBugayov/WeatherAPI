@@ -3,13 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>WeatherAPI</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Current Weather</h1>
-    <p>Temperature: <span id="temperature"></span></p>
-    <p>Cloudiness: <span id="cloudiness"></span></p>
-    <p>Wind speed: <span id="wind-speed"></span></p>
+    <header>
+        <h1>WeatherAPI</h1>
+    </header>
+    <main>
+        <div class="top_block">
+            <div class="weather_block">
+                <p>Location: <span id="location"></span></p>
+                <p>Temperature: <span id="temperature"></span></p>
+                <p>Cloudiness: <span id="cloudiness"></span></p>
+                <p>Wind speed: <span id="wind-speed"></span></p>
+            </div>
+            <div class="weather_block" style="width: 200px;">
+                <p>Select from the drop-down menu:</p>
+                <select>
+                    <option value="Kiev" selected>Kyiv</option>
+                    <option value="London">London</option>
+                    <option value="New-York">New-York</option>
+                    <option value="Warsaw">Warsaw</option>
+                    <option value="Sidney">Sidney</option>
+                </select>
+                <p>or just enter the city name:</p>
+                <div class="city_input">
+                    <input type="text">
+                    <button type="button">Ok</button>
+                </div>
+            </div>
+        </div>
 
+        <div class="forecast_block" id="forecast">
+
+        </div>
+    </main>
     <script src="weather.js"></script>
 </body>
 </html>
