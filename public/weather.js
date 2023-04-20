@@ -1,7 +1,25 @@
 window.onload = function () {
     const apiKey = 'f76dc91df8de4ffb82a211614231904'
 
-    async function getWeatherData(location = 'Kiev') {
+    const forecastField = document.getElementById('forecast')
+    const cityDropBox = document.getElementById('drop_box')
+    const submitButton = document.getElementById('submit_button')
+    const city = document.getElementById('city')
+
+    setCity('Kiev')
+
+    submitButton.onclick = function () {
+        setCity(city.value)
+        cityDropBox.value = ''
+    }
+
+    cityDropBox.addEventListener('change', function () {
+        setCity(this.value)
+        city.value = ''
+    })
+
+
+    async function getWeatherData(location) {
         const url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=10`
         const res = await fetch(url)
         return await res.json()
@@ -13,10 +31,9 @@ window.onload = function () {
         document.getElementById('cloudiness').textContent = `${data.current.cloud}%`
         document.getElementById('wind-speed').textContent = `${data.current.wind_kph}`
 
-        const forecast_field = document.getElementById('forecast')
-        forecast_field.innerHTML = ''
+        forecastField.innerHTML = ''
         data.forecast.forecastday.forEach(item => {
-            forecast_field.innerHTML +=
+            forecastField.innerHTML +=
                 `
                     <div class="weather_day_block" id="${item.date}">
                         <div class="weather_block">
@@ -52,8 +69,17 @@ window.onload = function () {
 
     }
 
-    getWeatherData()
-        .then(data => fillHtml(data))
-        .catch(error => console.log(error))
+    function printError() {
+        forecastField.innerHTML =
+            `
+                <h2>City not found<h2>
+            `
+    }
+
+    function setCity(city) {
+        getWeatherData(city)
+            .then(data => fillHtml(data))
+            .catch(_ => printError())
+    }
 
 }
