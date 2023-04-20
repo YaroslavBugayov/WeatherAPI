@@ -26,10 +26,14 @@ window.onload = function () {
     }
 
     function fillHtml(data) {
-        document.getElementById('location').textContent = `${data.location.name}`
+        document.getElementById('location').textContent = data.location.name
+        document.getElementById('condition').textContent = data.current.condition.text
+        document.getElementById('condition_icon').src = data.current.condition.icon
         document.getElementById('temperature').textContent = `${data.current.temp_c}°C`
         document.getElementById('cloudiness').textContent = `${data.current.cloud}%`
-        document.getElementById('wind-speed').textContent = `${data.current.wind_kph}`
+        document.getElementById('wind-speed').textContent = data.current.wind_kph
+
+        setBackground(data.current.condition.text)
 
         forecastField.innerHTML = ''
         data.forecast.forecastday.forEach(item => {
@@ -46,7 +50,6 @@ window.onload = function () {
                         </div>
                     </div>
                 `
-            console.log(item)
             const temp = document.getElementById(`${item.date}`)
             item.hour.forEach((hour, i) => {
                 if (i % 4 === 0) {
@@ -65,8 +68,6 @@ window.onload = function () {
 
             })
         })
-
-
     }
 
     function printError() {
@@ -80,6 +81,81 @@ window.onload = function () {
         getWeatherData(city)
             .then(data => fillHtml(data))
             .catch(_ => printError())
+    }
+
+    function setBackground(condition) {
+        const body = document.body.style
+        switch (condition) {
+            case 'Clear':
+                body.background = '#FFF'
+                break
+            case 'Cloudy':
+                body.background = '#999'
+                break
+            case 'Partly cloudy':
+                body.background = '#BBB'
+                break
+            case 'Sunny':
+                body.background = '#e7eba0'
+                break
+            case 'Overcast':
+                body.background = '#666'
+                break
+            case 'Rain':
+                body.background = '#bfd1ff'
+                break
+            case 'Light rain':
+                body.background = '#b3cdff'
+                break
+            case 'Heavy rain':
+                body.background = '#a2c0fa'
+                break
+            case 'Drizzle':
+                body.background = '#829dd1'
+                break
+            case 'Light drizzle':
+                body.background = '#829dd1'
+                break
+            case 'Heavy drizzle':
+                body.background = '#829dd1'
+                break
+            case 'Thunderstorm':
+                body.background = '#919191'
+                break
+            case 'Snow':
+                body.background = '#f2f2f2'
+                break
+            case 'Light snow':
+                body.background = '#FFF'
+                break
+            case 'Heavy snow':
+                body.background = '#FFF'
+                break
+            case 'Mist':
+                body.background = '#999'
+                break
+            case 'Smoke':
+                body.background = '#999'
+                break
+            case 'Haze':
+                body.background = '#999'
+                break
+            case 'Fog':
+                body.background = '#999'
+                break
+            case 'Sand/dust':
+                body.background = '#999'
+                break
+            case 'Ash':
+                body.background = '#999'
+                break
+            case 'Squalls':
+                body.background = '#999'
+                break
+            case 'Tornado':
+                body.background = '#999'
+                break
+        }
     }
 
 }

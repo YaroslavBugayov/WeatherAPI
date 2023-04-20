@@ -3,18 +3,10 @@
     padding: 0;
 }
 
-body {
-    background: #F5F8DA;
-}
-
 header {
     text-align: center;
     margin: 10px;
 }
-
-/*main {*/
-/*    margin: 15px;*/
-/*}*/
 
 .weather_block {
     display: flex;
